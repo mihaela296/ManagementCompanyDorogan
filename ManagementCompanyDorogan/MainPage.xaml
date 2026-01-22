@@ -1,0 +1,26 @@
+﻿<Page x:Class="ManagementCompanyDorogan.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Главная" 
+      Background="#FFFFFF"
+      FontFamily="Segoe UI">
+
+    <StackPanel Margin="20">
+        <TextBlock Text="Добро пожаловать в систему управляющей компании 'ЖилФонд'" 
+                   FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <TextBlock Text="Для работы выберите нужный раздел в меню слева" 
+                   FontSize="16" Margin="0,10,0,0"/>
+
+        <Border BorderBrush="#F4E8D3" BorderThickness="2" CornerRadius="10" 
+                Padding="15" Margin="0,20,0,0">
+            <StackPanel>
+                <TextBlock Text="Быстрый старт:" FontSize="18" FontWeight="Bold" 
+                           Margin="0,0,0,10"/>
+                <TextBlock Text="1. Нажмите 'Список заявок' для просмотра заявок" Margin="0,5"/>
+                <TextBlock Text="2. Нажмите 'Добавить заявку' для создания новой" Margin="0,5"/>
+                <TextBlock Text="3. Используйте другие разделы для просмотра данных" Margin="0,5"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Page>

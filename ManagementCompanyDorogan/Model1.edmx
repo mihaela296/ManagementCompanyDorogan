@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ManagementCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Apartments">
+          <Key>
+            <PropertyRef Name="Apartment_id" />
+          </Key>
+          <Property Name="Apartment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Debt">
+          <Key>
+            <PropertyRef Name="Debt_id" />
+          </Key>
+          <Property Name="Debt_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Apartment" Type="int" />
+          <Property Name="Owner" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Water" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Electricity" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="OtchetPoOplate">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Owner" Type="int" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Apartment" Type="int" />
+          <Property Name="Period" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Accrued" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Paid" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Owners">
+          <Key>
+            <PropertyRef Name="Owner_id" />
+          </Key>
+          <Property Name="Owner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpisokJilogoFonda">
+          <Key>
+            <PropertyRef Name="Fond_id" />
+          </Key>
+          <Property Name="Fond_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar(max)" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="Floors" Type="int" />
+          <Property Name="Apartament" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Square" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_Debt_Apartments">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="Debt" Type="Self.Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Apartment_id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="Apartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debt_Owners">
+          <End Role="Owners" Type="Self.Owners" Multiplicity="1" />
+          <End Role="Debt" Type="Self.Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owners">
+              <PropertyRef Name="Owner_id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OtchetPoOplate_Apartments">
+          <End Role="Apartments" Type="Self.Apartments" Multiplicity="0..1" />
+          <End Role="OtchetPoOplate" Type="Self.OtchetPoOplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Apartment_id" />
+            </Principal>
+            <Dependent Role="OtchetPoOplate">
+              <PropertyRef Name="Apartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OtchetPoOplate_Owners">
+          <End Role="Owners" Type="Self.Owners" Multiplicity="1" />
+          <End Role="OtchetPoOplate" Type="Self.OtchetPoOplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owners">
+              <PropertyRef Name="Owner_id" />
+            </Principal>
+            <Dependent Role="OtchetPoOplate">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ManagementCompanyModelContainer">
+          <EntitySet Name="Apartments" EntityType="Self.Apartments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Debt" EntityType="Self.Debt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtchetPoOplate" EntityType="Self.OtchetPoOplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Owners" EntityType="Self.Owners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpisokJilogoFonda" EntityType="Self.SpisokJilogoFonda" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Debt_Apartments" Association="Self.FK_Debt_Apartments">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Debt" EntitySet="Debt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debt_Owners" Association="Self.FK_Debt_Owners">
+            <End Role="Owners" EntitySet="Owners" />
+            <End Role="Debt" EntitySet="Debt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OtchetPoOplate_Apartments" Association="Self.FK_OtchetPoOplate_Apartments">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="OtchetPoOplate" EntitySet="OtchetPoOplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OtchetPoOplate_Owners" Association="Self.FK_OtchetPoOplate_Owners">
+            <End Role="Owners" EntitySet="Owners" />
+            <End Role="OtchetPoOplate" EntitySet="OtchetPoOplate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ManagementCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="Apartment_id" />
+          </Key>
+          <Property Name="Apartment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Debts" Relationship="Self.FK_Debt_Apartments" FromRole="Apartments" ToRole="Debt" />
+          <NavigationProperty Name="OtchetPoOplates" Relationship="Self.FK_OtchetPoOplate_Apartments" FromRole="Apartments" ToRole="OtchetPoOplate" />
+        </EntityType>
+        <EntityType Name="Debt">
+          <Key>
+            <PropertyRef Name="Debt_id" />
+          </Key>
+          <Property Name="Debt_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apartment" Type="Int32" />
+          <Property Name="Owner" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Water" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Electricity" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Apartment1" Relationship="Self.FK_Debt_Apartments" FromRole="Debt" ToRole="Apartments" />
+          <NavigationProperty Name="Owner1" Relationship="Self.FK_Debt_Owners" FromRole="Debt" ToRole="Owners" />
+        </EntityType>
+        <EntityType Name="OtchetPoOplate">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Owner" Type="Int32" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apartment" Type="Int32" />
+          <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Accrued" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Paid" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Apartment1" Relationship="Self.FK_OtchetPoOplate_Apartments" FromRole="OtchetPoOplate" ToRole="Apartments" />
+          <NavigationProperty Name="Owner1" Relationship="Self.FK_OtchetPoOplate_Owners" FromRole="OtchetPoOplate" ToRole="Owners" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="Owner_id" />
+          </Key>
+          <Property Name="Owner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Debts" Relationship="Self.FK_Debt_Owners" FromRole="Owners" ToRole="Debt" />
+          <NavigationProperty Name="OtchetPoOplates" Relationship="Self.FK_OtchetPoOplate_Owners" FromRole="Owners" ToRole="OtchetPoOplate" />
+        </EntityType>
+        <EntityType Name="SpisokJilogoFonda">
+          <Key>
+            <PropertyRef Name="Fond_id" />
+          </Key>
+          <Property Name="Fond_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Floors" Type="Int32" />
+          <Property Name="Apartament" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Square" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_Debt_Apartments">
+          <End Role="Apartments" Type="Self.Apartment" Multiplicity="0..1" />
+          <End Role="Debt" Type="Self.Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Apartment_id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="Apartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OtchetPoOplate_Apartments">
+          <End Role="Apartments" Type="Self.Apartment" Multiplicity="0..1" />
+          <End Role="OtchetPoOplate" Type="Self.OtchetPoOplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartments">
+              <PropertyRef Name="Apartment_id" />
+            </Principal>
+            <Dependent Role="OtchetPoOplate">
+              <PropertyRef Name="Apartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debt_Owners">
+          <End Role="Owners" Type="Self.Owner" Multiplicity="1" />
+          <End Role="Debt" Type="Self.Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owners">
+              <PropertyRef Name="Owner_id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OtchetPoOplate_Owners">
+          <End Role="Owners" Type="Self.Owner" Multiplicity="1" />
+          <End Role="OtchetPoOplate" Type="Self.OtchetPoOplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owners">
+              <PropertyRef Name="Owner_id" />
+            </Principal>
+            <Dependent Role="OtchetPoOplate">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Apartments" EntityType="Self.Apartment" />
+          <EntitySet Name="Debts" EntityType="Self.Debt" />
+          <EntitySet Name="OtchetPoOplates" EntityType="Self.OtchetPoOplate" />
+          <EntitySet Name="Owners" EntityType="Self.Owner" />
+          <EntitySet Name="SpisokJilogoFondas" EntityType="Self.SpisokJilogoFonda" />
+          <AssociationSet Name="FK_Debt_Apartments" Association="Self.FK_Debt_Apartments">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="Debt" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OtchetPoOplate_Apartments" Association="Self.FK_OtchetPoOplate_Apartments">
+            <End Role="Apartments" EntitySet="Apartments" />
+            <End Role="OtchetPoOplate" EntitySet="OtchetPoOplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debt_Owners" Association="Self.FK_Debt_Owners">
+            <End Role="Owners" EntitySet="Owners" />
+            <End Role="Debt" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OtchetPoOplate_Owners" Association="Self.FK_OtchetPoOplate_Owners">
+            <End Role="Owners" EntitySet="Owners" />
+            <End Role="OtchetPoOplate" EntitySet="OtchetPoOplates" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ManagementCompanyModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Apartments">
+            <EntityTypeMapping TypeName="ManagementCompanyModel.Apartment">
+              <MappingFragment StoreEntitySet="Apartments">
+                <ScalarProperty Name="Apartment_id" ColumnName="Apartment_id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debts">
+            <EntityTypeMapping TypeName="ManagementCompanyModel.Debt">
+              <MappingFragment StoreEntitySet="Debt">
+                <ScalarProperty Name="Debt_id" ColumnName="Debt_id" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Water" ColumnName="Water" />
+                <ScalarProperty Name="Electricity" ColumnName="Electricity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtchetPoOplates">
+            <EntityTypeMapping TypeName="ManagementCompanyModel.OtchetPoOplate">
+              <MappingFragment StoreEntitySet="OtchetPoOplate">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="Accrued" ColumnName="Accrued" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Owners">
+            <EntityTypeMapping TypeName="ManagementCompanyModel.Owner">
+              <MappingFragment StoreEntitySet="Owners">
+                <ScalarProperty Name="Owner_id" ColumnName="Owner_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpisokJilogoFondas">
+            <EntityTypeMapping TypeName="ManagementCompanyModel.SpisokJilogoFonda">
+              <MappingFragment StoreEntitySet="SpisokJilogoFonda">
+                <ScalarProperty Name="Fond_id" ColumnName="Fond_id" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Floors" ColumnName="Floors" />
+                <ScalarProperty Name="Apartament" ColumnName="Apartament" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Square" ColumnName="Square" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿<Page x:Class="ManagementCompanyDorogan.RequestHistoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="История заявок" 
+      Background="#FFFFFF"
+      FontFamily="Segoe UI"
+      Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель управления -->
+        <Border Grid.Row="0" Background="#F4E8D3" Padding="10">
+            <StackPanel>
+                <TextBlock Text="История выполнения заявок" 
+                          FontSize="20" FontWeight="Bold"/>
+
+                <WrapPanel Margin="0,10,0,0">
+                    <Button Content="🔍 Применить" Background="#67BA80" 
+                            Foreground="White" Padding="10,5" Margin="10,0,10,0"
+                            Click="btnApplyFilter_Click"/>
+
+                    <Button Content="🔄 Сбросить" Background="#F4E8D3" 
+                            Padding="10,5" Margin="0,0,10,0"
+                            Click="btnReset_Click"/>
+
+                    <Button Content="📊 Статистика" Background="#F4E8D3" 
+                            Padding="10,5" Margin="0,0,10,0"
+                            Click="btnStatistics_Click"/>
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Таблица истории -->
+        <DataGrid x:Name="dgHistory" Grid.Row="1" Margin="10"
+                  AutoGenerateColumns="True" IsReadOnly="True"
+                  SelectionMode="Single" AlternatingRowBackground="#F9F9F9">
+        </DataGrid>
+    </Grid>
+</Page>

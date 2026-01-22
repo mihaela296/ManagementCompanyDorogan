@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="24e656c037e647f8826aeca0667a2d43" Name="Diagram1">
+        <EntityTypeShape EntityType="ManagementCompanyModel.Apartment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagementCompanyModel.Debt" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagementCompanyModel.OtchetPoOplate" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagementCompanyModel.Owner" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ManagementCompanyModel.SpisokJilogoFonda" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="ManagementCompanyModel.FK_Debt_Apartments" ManuallyRouted="false" />
+        <AssociationConnector Association="ManagementCompanyModel.FK_OtchetPoOplate_Apartments" ManuallyRouted="false" />
+        <AssociationConnector Association="ManagementCompanyModel.FK_Debt_Owners" ManuallyRouted="false" />
+        <AssociationConnector Association="ManagementCompanyModel.FK_OtchetPoOplate_Owners" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
