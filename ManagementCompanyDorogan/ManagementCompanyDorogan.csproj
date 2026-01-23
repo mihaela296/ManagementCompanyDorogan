@@ -71,8 +71,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddEditSpisokPage.xaml.cs">
+      <DependentUpon>AddEditSpisokPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Apartment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApartPage.xaml.cs">
+      <DependentUpon>ApartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters.cs" />
     <Compile Include="Debt.cs">
@@ -80,6 +89,9 @@
     </Compile>
     <Compile Include="DebtsPage.xaml.cs">
       <DependentUpon>DebtsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DirectorPage.xaml.cs">
+      <DependentUpon>DirectorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditRequestPage.xaml.cs">
       <DependentUpon>EditRequestPage.xaml</DependentUpon>
@@ -95,6 +107,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="OtchetDebtPage.xaml.cs">
+      <DependentUpon>OtchetDebtPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OtchetPoOplate.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -107,6 +122,9 @@
     <Compile Include="PaymentsPage.xaml.cs">
       <DependentUpon>PaymentsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportsPage.xaml.cs">
+      <DependentUpon>ReportsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RequestHistoryPage.xaml.cs">
       <DependentUpon>RequestHistoryPage.xaml</DependentUpon>
     </Compile>
@@ -116,7 +134,27 @@
     <Compile Include="SpisokJilogoFonda.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="SpisokPage.xaml.cs">
+      <DependentUpon>SpisokPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationHelper.cs" />
+    <Page Include="AddEditSpisokPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ApartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DebtsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DirectorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +182,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OtchetDebtPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OwnersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,11 +194,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ReportsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RequestHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RequestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpisokPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

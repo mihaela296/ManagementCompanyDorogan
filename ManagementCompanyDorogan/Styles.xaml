@@ -1,0 +1,223 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Основные цвета -->
+    <SolidColorBrush x:Key="PrimaryColor" Color="#67BA80"/>
+    <SolidColorBrush x:Key="SecondaryColor" Color="#F4E8D3"/>
+    <SolidColorBrush x:Key="TextColor" Color="#2C3E50"/>
+    <SolidColorBrush x:Key="LightGray" Color="#F8F9FA"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#E9ECEF"/>
+    <SolidColorBrush x:Key="SuccessColor" Color="#28A745"/>
+    <SolidColorBrush x:Key="WarningColor" Color="#FFC107"/>
+    <SolidColorBrush x:Key="DangerColor" Color="#DC3545"/>
+    <SolidColorBrush x:Key="InfoColor" Color="#17A2B8"/>
+
+    <!-- Стили текста -->
+    <Style x:Key="Header1" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,20,0,10"/>
+    </Style>
+
+    <Style x:Key="Header2" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Margin" Value="0,10,0,5"/>
+    </Style>
+
+    <Style x:Key="NormalText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SmallText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="#6C757D"/>
+    </Style>
+
+    <!-- Стили кнопок БЕЗ CornerRadius -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="20,10"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="SecondaryButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="20,10"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+    </Style>
+
+    <Style x:Key="DangerButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource DangerColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="20,10"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <!-- Стили полей ввода -->
+    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,5,0,10"/>
+    </Style>
+
+    <Style x:Key="TextBoxError" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" 
+                        Value="{Binding RelativeSource={RelativeSource Self}, 
+                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource DangerColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Стили для DataGrid -->
+    <Style x:Key="DataGridStyle" TargetType="DataGrid">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="RowBackground" Value="White"/>
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource LightGray}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="VerticalGridLinesBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="True"/>
+        <Setter Property="CanUserSortColumns" Value="True"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <!-- Стили для заголовков DataGrid -->
+    <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,0"/>
+    </Style>
+
+    <!-- Стиль для строк DataGrid при наведении -->
+    <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#E8F5E9"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#C8E6C9"/>
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Упрощенные стили для контейнеров БЕЗ CornerRadius -->
+    <Style x:Key="CardContainer" TargetType="Border">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="SectionContainer" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource LightGray}"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="0,10"/>
+    </Style>
+
+    <!-- Упрощенные стили для сообщений БЕЗ CornerRadius -->
+    <Style x:Key="SuccessMessage" TargetType="Border">
+        <Setter Property="Background" Value="#D4EDDA"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderBrush" Value="#C3E6CB"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="ErrorMessage" TargetType="Border">
+        <Setter Property="Background" Value="#F8D7DA"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderBrush" Value="#F5C6CB"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="WarningMessage" TargetType="Border">
+        <Setter Property="Background" Value="#FFF3CD"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderBrush" Value="#FFEEBA"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="InfoMessage" TargetType="Border">
+        <Setter Property="Background" Value="#D1ECF1"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderBrush" Value="#BEE5EB"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <!-- Стиль для подсказок ToolTip -->
+    <Style x:Key="ToolTipStyle" TargetType="ToolTip">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+</ResourceDictionary>

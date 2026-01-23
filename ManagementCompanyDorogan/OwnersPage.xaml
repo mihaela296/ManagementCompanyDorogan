@@ -1,8 +1,8 @@
 ﻿<Page x:Class="ManagementCompanyDorogan.OwnersPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Собственники" 
-      Background="#FFFFFF"
+      Title="Владельцы квартир" 
+      Background="White"
       FontFamily="Segoe UI"
       Loaded="Page_Loaded">
 
@@ -12,28 +12,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Панель управления -->
-        <Border Grid.Row="0" Background="#F4E8D3" Padding="10">
-            <StackPanel>
-                <TextBlock x:Name="txtTitle" Text="Собственники жилых помещений" 
-                          FontSize="20" FontWeight="Bold"/>
-
-                <WrapPanel Margin="0,10,0,0">
-                    <Button Content="🔄 Обновить" Background="#67BA80" 
-                            Foreground="White" Padding="10,5" Margin="0,0,10,0"
-                            Click="btnRefresh_Click"/>
-
-                    <Button Content="🔍 Поиск" Background="#F4E8D3" 
-                            Padding="10,5" Margin="0,0,10,0"
-                            Click="btnSearch_Click"/>
-                </WrapPanel>
-            </StackPanel>
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="#67BA80" Padding="15">
+            <TextBlock Text="Владельцы квартир" 
+                       FontSize="22" FontWeight="Bold" Foreground="White"
+                       HorizontalAlignment="Center"/>
         </Border>
 
-        <!-- Таблица собственников -->
+        <!-- Таблица -->
         <DataGrid x:Name="dgOwners" Grid.Row="1" Margin="10"
                   AutoGenerateColumns="True" IsReadOnly="True"
-                  SelectionMode="Single">
-        </DataGrid>
+                  SelectionMode="Single" AlternatingRowBackground="#F9F9F9"/>
     </Grid>
 </Page>

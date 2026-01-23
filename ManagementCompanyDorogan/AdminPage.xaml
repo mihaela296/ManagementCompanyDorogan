@@ -1,0 +1,230 @@
+﻿<Page x:Class="ManagementCompanyDorogan.AdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Администратор" 
+      Background="White"
+      FontFamily="Segoe UI">
+
+    <Grid Background="White">
+        <!-- Заголовок -->
+        <TextBlock Text="Панель администратора" 
+                   FontSize="28" FontWeight="Bold" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top"
+                   Margin="0,40,0,0" Foreground="#2C3E50"/>
+
+        <!-- Панель с кнопками -->
+        <Border Background="#F8F9FA" 
+                BorderBrush="#E9ECEF" BorderThickness="2"
+                Padding="40" Width="500" Height="400"
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <StackPanel>
+                <!-- Первая строка -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <!-- Кнопка Список жилого фонда -->
+                    <Button x:Name="SpisokButton" 
+                            Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
+                            Background="#67BA80" Foreground="White" BorderThickness="0"
+                            Click="SpisokButton_Click" Margin="0,0,20,0" 
+                            Cursor="Hand"
+                            ToolTip="Управление информацией о жилом фонде">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center" 
+                                                                Margin="10,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="🏠" FontSize="16" Margin="0,0,10,0"/>
+                                <TextBlock Text="Жилой фонд" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <!-- Кнопка Задолженности -->
+                    <Button x:Name="DebtButton" 
+                            Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
+                            Background="#67BA80" Foreground="White" BorderThickness="0"
+                            Click="DebtButton_Click" 
+                            Cursor="Hand"
+                            ToolTip="Просмотр и управление задолженностями по оплате">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center" 
+                                                                Margin="10,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="💰" FontSize="16" Margin="0,0,10,0"/>
+                                <TextBlock Text="Задолженности" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <!-- Вторая строка -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <!-- Кнопка Отчёты -->
+                    <Button x:Name="OtchetButton" 
+                            Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
+                            Background="#67BA80" Foreground="White" BorderThickness="0"
+                            Click="OtchetButton_Click" Margin="0,0,20,0" 
+                            Cursor="Hand"
+                            ToolTip="Отчёты по оплате коммунальных услуг">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center" 
+                                                                Margin="10,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="📊" FontSize="16" Margin="0,0,10,0"/>
+                                <TextBlock Text="Отчёты" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <!-- Кнопка Отчёт по задолженностям -->
+                    <Button x:Name="ReportButton" 
+                            Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
+                            Background="#67BA80" Foreground="White" BorderThickness="0"
+                            Click="ReportButton_Click" 
+                            Cursor="Hand"
+                            ToolTip="Детальный отчёт по задолженностям">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center" 
+                                                                Margin="10,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="📈" FontSize="16" Margin="0,0,10,0"/>
+                                <TextBlock Text="Отчёт по задолженностям" 
+                                          VerticalAlignment="Center"
+                                          TextWrapping="Wrap" 
+                                          TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <!-- Третья строка -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <!-- Кнопка Настройки -->
+                    <Button x:Name="SettingsButton" 
+                            Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
+                            Background="#6C757D" Foreground="White" BorderThickness="0"
+                            Click="SettingsButton_Click" HorizontalAlignment="Center" 
+                            Cursor="Hand"
+                            ToolTip="Настройки системы">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center" 
+                                                                Margin="10,5"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5A6268"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="⚙️" FontSize="16" Margin="0,0,10,0"/>
+                                <TextBlock Text="Настройки" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <!-- Кнопка для возврата -->
+                <Button x:Name="btnReturnToStart" 
+                        Content="Выйти в главное меню" 
+                        Width="200" Height="40" FontSize="13"
+                        Background="Transparent" 
+                        Foreground="#67BA80"
+                        BorderBrush="#67BA80" BorderThickness="2"
+                        Click="btnReturnToStart_Click"
+                        HorizontalAlignment="Center"
+                        Margin="0,10"
+                        Cursor="Hand"
+                        ToolTip="Вернуться к выбору роли">
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
