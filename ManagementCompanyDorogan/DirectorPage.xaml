@@ -127,7 +127,7 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Text="📊" FontSize="16" Margin="0,0,10,0"/>
-                                <TextBlock Text="Отчёты" VerticalAlignment="Center"/>
+                                <TextBlock Text="Отчёты по оплате" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -207,50 +207,11 @@
                         </Button.Content>
                     </Button>
 
-                    <!-- Кнопка Аналитика -->
-                    <Button x:Name="ReportButton" 
-                            Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
-                            Background="#67BA80" Foreground="White" BorderThickness="0"
-                            Click="ReportButton_Click" 
-                            Cursor="Hand"
-                            ToolTip="Аналитические отчёты и статистика">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="border" 
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                                VerticalAlignment="Center" 
-                                                                Margin="10,5"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="📈" FontSize="16" Margin="0,0,10,0"/>
-                                <TextBlock Text="Аналитика" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
-
-                <!-- Четвертая строка -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                     <!-- Кнопка Отчёт по задолженностям -->
                     <Button x:Name="DebtReportButton" 
                             Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
-                            Click="DebtReportButton_Click" Margin="0,0,20,0" 
+                            Click="DebtReportButton_Click" 
                             Cursor="Hand"
                             ToolTip="Детальный отчёт по задолженностям">
                         <Button.Style>
@@ -284,43 +245,9 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-
-                    <!-- Кнопка Настройки -->
-                    <Button x:Name="SettingsButton" 
-                            Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
-                            Background="#6C757D" Foreground="White" BorderThickness="0"
-                            Click="SettingsButton_Click" 
-                            Cursor="Hand"
-                            ToolTip="Настройки системы">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="border" 
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                                VerticalAlignment="Center" 
-                                                                Margin="10,5"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="#5A6268"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="⚙️" FontSize="16" Margin="0,0,10,0"/>
-                                <TextBlock Text="Настройки" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
                 </StackPanel>
+
+                <!-- Четвертая строка - удалена кнопка аналитики -->
 
                 <!-- Кнопка для возврата -->
                 <Button x:Name="btnReturnToStart" 

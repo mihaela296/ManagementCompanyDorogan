@@ -172,43 +172,9 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Третья строка -->
+                <!-- Третья строка - удаляем кнопку настроек, оставляем только кнопку возврата -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <!-- Кнопка Настройки -->
-                    <Button x:Name="SettingsButton" 
-                            Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
-                            Background="#6C757D" Foreground="White" BorderThickness="0"
-                            Click="SettingsButton_Click" HorizontalAlignment="Center" 
-                            Cursor="Hand"
-                            ToolTip="Настройки системы">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="border" 
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                                VerticalAlignment="Center" 
-                                                                Margin="10,5"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="#5A6268"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="⚙️" FontSize="16" Margin="0,0,10,0"/>
-                                <TextBlock Text="Настройки" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
+                    <!-- Пустое пространство вместо кнопки настроек -->
                 </StackPanel>
 
                 <!-- Кнопка для возврата -->

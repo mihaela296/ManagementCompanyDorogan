@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
+
 namespace ManagementCompanyDorogan
 {
     public partial class AdminPage : Page
@@ -31,12 +32,7 @@ namespace ManagementCompanyDorogan
             NavigationService.Navigate(new ReportsPage());
         }
 
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Настройки системы доступны системному администратору",
-                          "Управление",
-                          MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        // УДАЛЕНО: Метод SettingsButton_Click
 
         private void btnReturnToStart_Click(object sender, RoutedEventArgs e)
         {

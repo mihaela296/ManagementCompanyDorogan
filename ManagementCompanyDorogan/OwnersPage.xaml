@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
@@ -21,7 +22,178 @@
 
         <!-- Таблица -->
         <DataGrid x:Name="dgOwners" Grid.Row="1" Margin="10"
-                  AutoGenerateColumns="True" IsReadOnly="True"
-                  SelectionMode="Single" AlternatingRowBackground="#F9F9F9"/>
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectionMode="Single" AlternatingRowBackground="#F9F9F9"
+                  SelectionChanged="dgOwners_SelectionChanged">
+
+            <DataGrid.Columns>
+                <!-- ID -->
+                <DataGridTextColumn Header="ID" Binding="{Binding Owner_id}" Width="50"/>
+
+                <!-- Имя владельца -->
+                <DataGridTextColumn Header="Имя владельца" Binding="{Binding Name}" Width="250"/>
+
+                <!-- Кнопка редактирования -->
+                <DataGridTemplateColumn Header="Действия" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="✏️ Редактировать" 
+                                    Height="30" Padding="5"
+                                    Click="EditButton_Click"
+                                    ToolTip="Редактировать запись о владельце"
+                                    Cursor="Hand"
+                                    Background="Transparent" 
+                                    Foreground="#67BA80"
+                                    BorderBrush="#67BA80" 
+                                    BorderThickness="1"
+                                    FontSize="11">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border x:Name="border" 
+                                                            Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                                        VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="border" Property="Background" Value="#E8F5E9"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Панель управления -->
+        <Border Grid.Row="2" Background="#F4E8D3" Padding="10">
+            <StackPanel>
+                <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <TextBlock x:Name="txtTotal" Text="Всего владельцев: 0" 
+                               FontSize="14" FontWeight="SemiBold"
+                               Margin="10,0"/>
+                    <TextBlock x:Name="txtSelected" Text="Выбрано: 0" 
+                               FontSize="14" FontWeight="SemiBold"
+                               Foreground="#67BA80"
+                               Margin="10,0"/>
+                </WrapPanel>
+
+                <WrapPanel HorizontalAlignment="Center">
+                    <!-- Кнопка Добавить -->
+                    <Button Content="➕ Добавить владельца" 
+                            x:Name="btnAdd"
+                            Width="160" Height="35"
+                            Background="#67BA80" Foreground="White"
+                            FontSize="13" FontWeight="SemiBold"
+                            BorderThickness="0"
+                            Click="btnAdd_Click"
+                            Margin="5"
+                            Cursor="Hand"
+                            ToolTip="Добавить нового владельца">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Кнопка Удалить -->
+                    <Button Content="🗑️ Удалить" 
+                            x:Name="btnDelete"
+                            Width="120" Height="35"
+                            Background="#DC3545" Foreground="White"
+                            FontSize="13" FontWeight="SemiBold"
+                            BorderThickness="0"
+                            Click="btnDelete_Click"
+                            Margin="5"
+                            Cursor="Hand"
+                            ToolTip="Удалить выбранного владельца"
+                            IsEnabled="False">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#C82333"/>
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Кнопка Обновить -->
+                    <Button Content="🔄 Обновить" 
+                            x:Name="btnRefresh"
+                            Width="120" Height="35"
+                            Background="#6C757D" Foreground="White"
+                            FontSize="13" FontWeight="SemiBold"
+                            BorderThickness="0"
+                            Click="btnRefresh_Click"
+                            Margin="5"
+                            Cursor="Hand"
+                            ToolTip="Обновить список владельцев">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border" 
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#5A6268"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </WrapPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

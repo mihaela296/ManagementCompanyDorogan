@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 
+
+
 namespace ManagementCompanyDorogan
 {
     public partial class DirectorPage : Page
@@ -80,17 +82,7 @@ namespace ManagementCompanyDorogan
             }
         }
 
-        private void ReportButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Модуль аналитики в разработке\n\n" +
-                          "Доступные функции:\n" +
-                          "• Статистика по заявкам\n" +
-                          "• Финансовые отчёты\n" +
-                          "• Анализ задолженностей\n" +
-                          "• Отчётность по жилому фонду",
-                          "Аналитика",
-                          MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        // УДАЛЕНО: Метод ReportButton_Click (аналитика)
 
         private void DebtReportButton_Click(object sender, RoutedEventArgs e)
         {
@@ -104,13 +96,6 @@ namespace ManagementCompanyDorogan
                 MessageBox.Show($"Ошибка перехода на страницу Отчётов: {ex.Message}",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Настройки системы доступны системному администратору",
-                          "Настройки",
-                          MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btnReturnToStart_Click(object sender, RoutedEventArgs e)
