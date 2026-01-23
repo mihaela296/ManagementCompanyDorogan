@@ -5,8 +5,6 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 
-
-
 namespace ManagementCompanyDorogan
 {
     public partial class ReportsPage : Page
@@ -43,7 +41,8 @@ namespace ManagementCompanyDorogan
                             Adress,
                             Period,
                             Accrued,
-                            ISNULL(Paid, 0) as Paid
+                            ISNULL(Paid, 0) as Paid,
+                            Owner
                         FROM OtchetPoOplate 
                         ORDER BY Period DESC, PaymentId DESC";
 
@@ -124,7 +123,8 @@ namespace ManagementCompanyDorogan
                             Adress,
                             Period,
                             Accrued,
-                            ISNULL(Paid, 0) as Paid
+                            ISNULL(Paid, 0) as Paid,
+                            Owner
                         FROM OtchetPoOplate 
                         WHERE PaymentId = @Id";
 
@@ -141,7 +141,8 @@ namespace ManagementCompanyDorogan
                                 reader["Adress"].ToString(),
                                 reader["Period"].ToString(),
                                 Convert.ToDecimal(reader["Accrued"]),
-                                Convert.ToDecimal(reader["Paid"])
+                                Convert.ToDecimal(reader["Paid"]),
+                                Convert.ToInt32(reader["Owner"])
                             );
                         }
                     }
@@ -154,19 +155,47 @@ namespace ManagementCompanyDorogan
             }
         }
 
-        private void ShowEditDialog(int paymentId, string address, string period, decimal accrued, decimal paid)
+        private void ShowEditDialog(int paymentId, string address, string period, decimal accrued, decimal paid, int ownerId)
         {
             // Создаем диалоговое окно для редактирования
             Window editDialog = new Window
             {
                 Title = "Редактирование отчета по оплате",
-                Width = 400,
-                Height = 350,
+                Width = 450,
+                Height = 500,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Window.GetWindow(this)
             };
 
             StackPanel panel = new StackPanel { Margin = new Thickness(15) };
+
+            // Поле для выбора владельца
+            TextBlock lblOwner = new TextBlock
+            {
+                Text = "Владелец:",
+                FontSize = 14,
+                Margin = new Thickness(0, 0, 0, 5)
+            };
+
+            ComboBox cmbOwner = new ComboBox
+            {
+                FontSize = 14,
+                Height = 30,
+                Margin = new Thickness(0, 0, 0, 10)
+            };
+
+            // Загружаем список владельцев
+            LoadOwnersToComboBox(cmbOwner);
+
+            // Выбираем текущего владельца
+            foreach (ComboBoxItem item in cmbOwner.Items)
+            {
+                if ((int)item.Tag == ownerId)
+                {
+                    cmbOwner.SelectedItem = item;
+                    break;
+                }
+            }
 
             // Поле для адреса
             TextBlock lblAddress = new TextBlock
@@ -260,6 +289,13 @@ namespace ManagementCompanyDorogan
 
             btnSave.Click += (s, e) =>
             {
+                if (cmbOwner.SelectedItem == null)
+                {
+                    MessageBox.Show("Выберите владельца", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(txtAddress.Text))
                 {
                     MessageBox.Show("Введите адрес", "Ошибка",
@@ -288,13 +324,18 @@ namespace ManagementCompanyDorogan
                     return;
                 }
 
-                UpdateReport(paymentId, txtAddress.Text.Trim(), txtPeriod.Text.Trim(), accruedValue, paidValue);
+                ComboBoxItem selectedOwner = (ComboBoxItem)cmbOwner.SelectedItem;
+                int selectedOwnerId = (int)selectedOwner.Tag;
+
+                UpdateReport(paymentId, selectedOwnerId, txtAddress.Text.Trim(), txtPeriod.Text.Trim(), accruedValue, paidValue);
                 editDialog.DialogResult = true;
             };
 
             buttonPanel.Children.Add(btnSave);
             buttonPanel.Children.Add(btnCancel);
 
+            panel.Children.Add(lblOwner);
+            panel.Children.Add(cmbOwner);
             panel.Children.Add(lblAddress);
             panel.Children.Add(txtAddress);
             panel.Children.Add(lblPeriod);
@@ -313,7 +354,42 @@ namespace ManagementCompanyDorogan
             }
         }
 
-        private void UpdateReport(int paymentId, string address, string period, decimal accrued, decimal paid)
+        private void LoadOwnersToComboBox(ComboBox comboBox)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT Owner_id, Name FROM Owners ORDER BY Name";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    comboBox.Items.Clear();
+
+                    while (reader.Read())
+                    {
+                        ComboBoxItem item = new ComboBoxItem
+                        {
+                            Content = $"{reader["Name"]} (ID: {reader["Owner_id"]})",
+                            Tag = Convert.ToInt32(reader["Owner_id"])
+                        };
+                        comboBox.Items.Add(item);
+                    }
+                    reader.Close();
+
+                    if (comboBox.Items.Count > 0)
+                        comboBox.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки владельцев: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void UpdateReport(int paymentId, int ownerId, string address, string period, decimal accrued, decimal paid)
         {
             try
             {
@@ -322,6 +398,7 @@ namespace ManagementCompanyDorogan
                     conn.Open();
                     string query = @"
                         UPDATE OtchetPoOplate SET 
+                            Owner = @OwnerId,
                             Adress = @Address,
                             Period = @Period,
                             Accrued = @Accrued,
@@ -330,6 +407,7 @@ namespace ManagementCompanyDorogan
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Id", paymentId);
+                    cmd.Parameters.AddWithValue("@OwnerId", ownerId);
                     cmd.Parameters.AddWithValue("@Address", address);
                     cmd.Parameters.AddWithValue("@Period", period);
                     cmd.Parameters.AddWithValue("@Accrued", accrued);
@@ -351,19 +429,36 @@ namespace ManagementCompanyDorogan
             }
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void ShowAddDialog()
         {
-            // Показываем диалоговое окно для добавления нового отчета
             Window addDialog = new Window
             {
                 Title = "Добавление нового отчета по оплате",
-                Width = 400,
-                Height = 350,
+                Width = 450,
+                Height = 500,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Window.GetWindow(this)
             };
 
             StackPanel panel = new StackPanel { Margin = new Thickness(15) };
+
+            // Поле для выбора владельца
+            TextBlock lblOwner = new TextBlock
+            {
+                Text = "Владелец:",
+                FontSize = 14,
+                Margin = new Thickness(0, 0, 0, 5)
+            };
+
+            ComboBox cmbOwner = new ComboBox
+            {
+                FontSize = 14,
+                Height = 30,
+                Margin = new Thickness(0, 0, 0, 10)
+            };
+
+            // Загружаем список владельцев
+            LoadOwnersToComboBox(cmbOwner);
 
             // Поле для адреса
             TextBlock lblAddress = new TextBlock
@@ -455,6 +550,13 @@ namespace ManagementCompanyDorogan
 
             btnSave.Click += (s, ev) =>
             {
+                if (cmbOwner.SelectedItem == null)
+                {
+                    MessageBox.Show("Выберите владельца", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(txtAddress.Text))
                 {
                     MessageBox.Show("Введите адрес", "Ошибка",
@@ -483,13 +585,18 @@ namespace ManagementCompanyDorogan
                     return;
                 }
 
-                AddNewReport(txtAddress.Text.Trim(), txtPeriod.Text.Trim(), accruedValue, paidValue);
+                ComboBoxItem selectedOwner = (ComboBoxItem)cmbOwner.SelectedItem;
+                int ownerId = (int)selectedOwner.Tag;
+
+                AddNewReport(ownerId, txtAddress.Text.Trim(), txtPeriod.Text.Trim(), accruedValue, paidValue);
                 addDialog.DialogResult = true;
             };
 
             buttonPanel.Children.Add(btnSave);
             buttonPanel.Children.Add(btnCancel);
 
+            panel.Children.Add(lblOwner);
+            panel.Children.Add(cmbOwner);
             panel.Children.Add(lblAddress);
             panel.Children.Add(txtAddress);
             panel.Children.Add(lblPeriod);
@@ -508,7 +615,7 @@ namespace ManagementCompanyDorogan
             }
         }
 
-        private void AddNewReport(string address, string period, decimal accrued, decimal paid)
+        private void AddNewReport(int ownerId, string address, string period, decimal accrued, decimal paid)
         {
             try
             {
@@ -517,11 +624,12 @@ namespace ManagementCompanyDorogan
                     conn.Open();
                     string query = @"
                         INSERT INTO OtchetPoOplate 
-                        (Adress, Period, Accrued, Paid) 
+                        (Owner, Adress, Period, Accrued, Paid) 
                         VALUES 
-                        (@Address, @Period, @Accrued, @Paid)";
+                        (@OwnerId, @Address, @Period, @Accrued, @Paid)";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@OwnerId", ownerId);
                     cmd.Parameters.AddWithValue("@Address", address);
                     cmd.Parameters.AddWithValue("@Period", period);
                     cmd.Parameters.AddWithValue("@Accrued", accrued);
@@ -538,6 +646,11 @@ namespace ManagementCompanyDorogan
                 MessageBox.Show($"Ошибка добавления отчета: {ex.Message}",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAddDialog();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

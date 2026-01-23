@@ -6,22 +6,18 @@
       FontFamily="Segoe UI">
 
     <Grid Background="White">
-        <!-- Заголовок -->
         <TextBlock Text="Панель администратора" 
                    FontSize="28" FontWeight="Bold" 
                    HorizontalAlignment="Center" VerticalAlignment="Top"
                    Margin="0,40,0,0" Foreground="#2C3E50"/>
 
-        <!-- Панель с кнопками -->
         <Border Background="#F8F9FA" 
                 BorderBrush="#E9ECEF" BorderThickness="2"
-                Padding="40" Width="500" Height="400"
+                Padding="40" Width="500" Height="450"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <StackPanel>
-                <!-- Первая строка -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <!-- Кнопка Список жилого фонда -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
                     <Button x:Name="SpisokButton" 
                             Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -57,7 +53,6 @@
                         </Button.Content>
                     </Button>
 
-                    <!-- Кнопка Задолженности -->
                     <Button x:Name="DebtButton" 
                             Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -94,9 +89,7 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Вторая строка -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <!-- Кнопка Отчёты -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
                     <Button x:Name="OtchetButton" 
                             Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -132,7 +125,6 @@
                         </Button.Content>
                     </Button>
 
-                    <!-- Кнопка Отчёт по задолженностям -->
                     <Button x:Name="ReportButton" 
                             Width="200" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -172,12 +164,6 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Третья строка - удаляем кнопку настроек, оставляем только кнопку возврата -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <!-- Пустое пространство вместо кнопки настроек -->
-                </StackPanel>
-
-                <!-- Кнопка для возврата -->
                 <Button x:Name="btnReturnToStart" 
                         Content="Выйти в главное меню" 
                         Width="200" Height="40" FontSize="13"

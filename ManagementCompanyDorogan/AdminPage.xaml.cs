@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-
 namespace ManagementCompanyDorogan
 {
     public partial class AdminPage : Page
@@ -28,11 +27,9 @@ namespace ManagementCompanyDorogan
 
         private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
-            // Используем существующую страницу отчета по оплате
-            NavigationService.Navigate(new ReportsPage());
+            // Открываем страницу отчета по задолженностям
+            NavigationService.Navigate(new OtchetDebtPage());
         }
-
-        // УДАЛЕНО: Метод SettingsButton_Click
 
         private void btnReturnToStart_Click(object sender, RoutedEventArgs e)
         {

@@ -6,22 +6,18 @@
       FontFamily="Segoe UI">
 
     <Grid Background="White">
-        <!-- Заголовок -->
         <TextBlock Text="Панель руководителя" 
                    FontSize="28" FontWeight="Bold" 
                    HorizontalAlignment="Center" VerticalAlignment="Top"
                    Margin="0,40,0,0" Foreground="#2C3E50"/>
 
-        <!-- Панель с кнопками -->
         <Border Background="#F8F9FA" 
                 BorderBrush="#E9ECEF" BorderThickness="2"
-                Padding="40" Width="600" Height="450"
+                Padding="40" Width="600" Height="400"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <StackPanel>
-                <!-- Первая строка -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <!-- Кнопка Список жилого фонда -->
                     <Button x:Name="SpisokButton" 
                             Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -57,7 +53,6 @@
                         </Button.Content>
                     </Button>
 
-                    <!-- Кнопка Задолженности -->
                     <Button x:Name="DebtButton" 
                             Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -94,9 +89,7 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Вторая строка -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <!-- Кнопка Отчёты -->
                     <Button x:Name="OtchetButton" 
                             Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -132,7 +125,6 @@
                         </Button.Content>
                     </Button>
 
-                    <!-- Кнопка Квартиры -->
                     <Button x:Name="ApartButton" 
                             Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
@@ -169,13 +161,11 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Третья строка -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                    <!-- Кнопка Владельцы -->
                     <Button x:Name="OwnerButton" 
                             Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
                             Background="#67BA80" Foreground="White" BorderThickness="0"
-                            Click="OwnerButton_Click" Margin="0,0,20,0" 
+                            Click="OwnerButton_Click"
                             Cursor="Hand"
                             ToolTip="Управление информацией о владельцах квартир">
                         <Button.Style>
@@ -206,50 +196,8 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-
-                    <!-- Кнопка Отчёт по задолженностям -->
-                    <Button x:Name="DebtReportButton" 
-                            Width="250" Height="50" FontSize="14" FontWeight="SemiBold"
-                            Background="#67BA80" Foreground="White" BorderThickness="0"
-                            Click="DebtReportButton_Click" 
-                            Cursor="Hand"
-                            ToolTip="Детальный отчёт по задолженностям">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="border" 
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                                VerticalAlignment="Center" 
-                                                                Margin="10,5"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="#5AA66F"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="📋" FontSize="16" Margin="0,0,10,0"/>
-                                <TextBlock Text="Отчёт по задолженностям" 
-                                          VerticalAlignment="Center"
-                                          TextWrapping="Wrap" 
-                                          TextAlignment="Center"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
                 </StackPanel>
 
-                <!-- Четвертая строка - удалена кнопка аналитики -->
-
-                <!-- Кнопка для возврата -->
                 <Button x:Name="btnReturnToStart" 
                         Content="Выйти в главное меню" 
                         Width="200" Height="40" FontSize="13"
